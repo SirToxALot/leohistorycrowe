@@ -4,153 +4,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leo's Real History Project First Draft</title>
+    <title>Timeline - Mormon Migration History Project</title>
     <style>
+        /* Background settings */
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-image: url('images/background.jpg');
+            background-image: url('images/salt_lake_city.png');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
-            background-repeat: no-repeat;
-            color: #fff;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Add a background overlay to increase text readability */
-        body::before {
-            content: "";
+        /* Gray overlay on the background */
+        .background-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
-            z-index: -1; /* Places the overlay behind the content */
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
         }
 
-        h1 {
-            text-align: center;
-            color: #f1c40f;
-            margin-bottom: 40px;
-        }
-
-        h2 {
-            color: #e74c3c;
-            margin-top: 20px;
-        }
-
-        h3 {
-            color: #ecf0f1;
-        }
-
-        p {
-            margin: 10px 0;
-        }
-
-        iframe {
-            display: block;
-            margin: 20px auto;
+        /* Navigation Bar styling */
+        nav {
             width: 100%;
-            max-width: 900px;
-            height: 500px;
-            border: none;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
 
-        .caption {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #bdc3c7;
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
         }
 
-        .caption a {
-            color: #f1c40f; /* Brighter yellow for contrast */
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #fff;
             text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Adjustments to timeline margin to account for nav bar */
+        .timeline {
+            margin-top: 120px;
+        }
+
+        /* Hero Section styling */
+        .hero {
+            text-align: center;
+            color: #fff;
+            margin-top: 120px;
+            padding: 3rem 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .hero .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            background: #fff;
+            color: #333;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 5px;
             font-weight: bold;
         }
 
-        .caption a:hover {
-            text-decoration: underline;
-        }
-
-        /* Ensure proper spacing for readability */
-        .container {
-            background-color: rgba(44, 62, 80, 0.8); /* Semi-transparent background for readability */
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .image-container {
+        /* Footer styling */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            padding: 1rem;
             text-align: center;
-            margin-top: 20px;
-        }
-
-        .image-container img {
+            position: fixed;
             width: 100%;
-            max-width: 800px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
+            bottom: 0;
         }
 
-        .image-caption {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #bdc3c7;
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Real History Project First Draft</h1>
+    <!-- Background Overlay -->
+    <div class="background-overlay"></div>
 
-        <h2>Research Question</h2>
-        <p><strong>What social, political, and religious factors contributed to the persecution of Mormons in the eastern United States, and how did these pressures lead to their migration and eventual settlement in Utah?</strong></p>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="timeline.html">Timeline</a></li>
+            <li><a href="migration.html">Migration & Settlement</a></li>
+            <li><a href="politics.html">Politics & Power</a></li>
+            <li><a href="context.html">Historical Context</a></li>
+            <li><a href="evidence.html">Evidence & Argument</a></li>
+        </ul>
+    </nav>
 
-        <h2>U.S. History Themes</h2>
-
-        <h3>Migration and Settlement (MIG)</h3>
-        <p>My project directly addresses the Mormon migration westward, examining how religious persecution and social pressures forced the Mormons to leave the eastern United States and seek refuge in Utah. I will explore why the Mormons chose to migrate, how they adapted to new physical and social environments in Utah, and how their settlement shaped the region, overall analyzing the push and pull factors behind their migration and the transformation of Utah as a result of their settlement.</p>
-
-        <h3>Politics and Power (PCE)</h3>
-        <p>The political conflicts that led to Mormon persecution, particularly how state and local governments viewed the Mormon Church’s influence and practices, relate to this theme. I will explore how the power struggles between the Mormons and their neighbors, and between the Mormons and local governments, influenced their decision to migrate. Additionally, I will discuss how the Utah War, which occurred after the Mormon Migration, highlights the political tensions and power struggles between the federal government and the Mormon settlers over governance in the Utah Territory.</p>
-
-        <h2>Historical Thinking Skills</h2>
-
-        <h3>Skill 4.A: Identify and Describe Historical Context</h3>
-        <p>I will use this skill to describe the broader social, political, and religious context that led to the persecution of Mormons in the eastern United States. This includes the rise of religious movements in the 19th century, the growing tension between different religious groups, and the political instability in regions like Illinois and Missouri. By identifying this context, I can show how these factors created an environment hostile to the Mormons, eventually forcing their migration westward.</p>
-
-        <h3>Skill 6.B: Support an Argument with Evidence</h3>
-        <p>I will apply this skill to build a strong argument about how persecution led to the Mormon migration and the settlement of Utah. I can support my argument using specific historical evidence, such as incidents like the Missouri Executive Order 44 (which sanctioned violence against Mormons), the conflicts in Nauvoo, and the Mormons' decision to move west under Brigham Young’s leadership. Through this evidence, I can discuss the cause-and-effect relationship between persecution and migration.</p>
-
-        <h2>Summary of Narrative</h2>
-        <p>The persecution of the Mormons in the eastern United States was largely due to a combination of social, political, and religious factors. Socially, the rapid growth of the Mormon community and their different lifestyle led to tensions with non-Mormons. Their religious beliefs and practices, particularly polygamy (the practice of having multiple wives), were considered too radical, which made them a target for religious intolerance, especially during the Christian revivals like the Second Great Awakening. Politically, conflicts arose as the Mormons sought autonomy (the right or condition of self-government), culminating in violence such as Missouri Executive Order 44, which called for their extermination. The political power they amassed in places like Nauvoo, Illinois also led to fears of a theocracy. These tensions ultimately escalated into armed conflicts and the murder of Joseph Smith, founder and leader of the Latter-Day Saint movement, and his brother, forcing the Mormons to migrate.</p>
-        
-        <p>Under Brigham Young's leadership, the Mormons embarked on a westward migration along the Mormon Trail, seeking refuge in the Great Basin, which lay outside of the U.S.’ borders at the time. Their journey was marked by hardships, including harsh weather and inadequate supplies, but they established settlements along the way and eventually reached the Salt Lake Valley in 1847. There, they built a prosperous community despite continuing political struggles and tensions with the federal government, which eventually ended with the Utah War. The migration is a significant example of the themes of religious persecution, migration, and the struggle for political autonomy.</p>        
-        
-        <div class="image-container">
-            <img src="images/great_basin_map.png" alt="Mormon Migration">
-            <div class="image-caption">Map of the Great Basin, where Mormon pioneers settled after their 1840s migration west.</div>
-        </div>
-
-        <h2>Clear Statement of Format and Sample of Project</h2>
-        <p>This website is the sample for my real history project. My goal is to create an informative website that delves into the causes and effects of the Mormon migration. The site will feature interactive elements, such as the timeline map below, to help visualize the journey. Additionally, I will include multimedia content like photographs and historical documents along with detailed descriptions to give readers a deeper understanding of this topic.</p>
-        
-        <iframe src="https://timemapper.okfnlabs.org/anon/7a0hso-real-history-project?embed=1"></iframe>
-        <div class="caption">In-progress map made using <a href="https://timemapper.okfnlabs.org/">TimeMapper</a> with this data: <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRaujl5ra6eyPHHhwZT5ymI5fUN519Y-Wzn2XvnKEYhnYWUcFv1OMniUv8Waeqjl2AM_VrM8YF4YCuF/pubhtml">Google Sheets Data</a></div>
-        
-        <!--<br><div class="image-container">
-            <img src="images/migration_route_map.png" alt="Mormon Migration">
-            <div class="image-caption">Mormon migration route to Utah</div>
-        </div><br>-->
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Mormon Migration and Settlement</h1>
+        <p>How did social, political, and religious tensions in the 19th-century eastern United States drive the persecution of the Mormon community, ultimately leading to their westward migration and eventual settlement of Utah?</p>
+        <a href="timeline.html" class="btn">Learn More</a>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Leo's Real History Project. All rights reserved.</p>
+    </footer>
 </body>
 
 </html>
