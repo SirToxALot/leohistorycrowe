@@ -1,241 +1,254 @@
-*{
+/* General Reset */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
 
-/* Gray overlay on the background */
-.background-overlay {
+body {
+    font-family: 'Trebuchet', sans-serif; /* A modern serif font for readability */
+    line-height: 1.7;
+    background-color: #f4f4f9; /* Softer off-white for readability */
+    color: #2c3e50; /* Dark gray-blue for professional tone */
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background-color: #005082; /* Refined blue tone */
+    color: #ffffff; /* White text for contrast */
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Main Content */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff; /* Clean white for the content box */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+section {
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #0078AA; /* Refined blue for headings */
+    font-size: 1.6rem;
+    border-bottom: 2px solid #005082; /* Underline to add structure */
+    padding-bottom: 5px;
+}
+
+p {
+    margin-bottom: 15px;
+    text-indent: 20px;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+}
+
+.unindented { /* unindented p */
+    margin-bottom: 15px;
+    text-indent: 0px;
+    font-size: 1.1rem;
+    color: #4a4a4a;
+
+}
+
+/* Enhanced Navigation Bar */
+nav {
+    width: 100%;
+    background-color: #003F63; /* Deep blue background */
+    display: flex;
+    justify-content: center;
+    padding: 1.2rem; /* Increased padding for better spacing */
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Navigation Bar Styling */
-nav {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-    position: fixed;
-    top: 0;
     z-index: 1000;
+    font-family: 'Trebuchet', sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li a {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 1.5rem 15px; /* More padding for larger clickable area */
     border-radius: 5px;
-    transition: background 0.3s ease;
+    font-size: 1.1rem; /* Slightly larger font size */
+    font-weight: 500; /* Medium font weight for better readability */
+    transition: all 0.3s ease; /* Smooth hover transition */
+    letter-spacing: 0.5px; /* Slight letter spacing for a professional touch */
 }
 
 nav ul li a:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background-color: #0078AA; /* Lighter blue on hover */
+    color: #f4f4f9; /* Subtle contrast */
+    box-shadow: 0 4px 8px rgba(0, 120, 170, 0.3); /* Slight shadow on hover */
+    
 }
 
-/* Adjust timeline margin for the nav bar */
-.timeline {
-    margin-top: 120px;
+
+/* Dropdown menu */
+nav ul li {
     position: relative;
-    z-index: 2;
 }
 
-/* Footer styling */
-footer {
-    background: rgba(0, 0, 0, 0.8);
-    color: #ffffff;
-    padding: 1rem;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    z-index: 2;
-}
-
-footer p {
-    margin: 0;
-    font-size: 0.9rem;
-}
-
-
-body {
-    background-image: url('images/salt_lake_city.png');
-    background-size: cover; /* Ensures the image covers the whole page */
-    background-position: center;
-    background-attachment: fixed; /* Keeps the background image fixed */
-    background-repeat: no-repeat;
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    box-sizing: border-box;
-}
-.timeline{
-    position: relative;
-    max-width: 1200px;
-    margin: 100px auto;
-}
-.container{
-    padding: 10px 50px;
-    position: relative;
-    width: 50%;
-    animation: movedown 1s linear forwards;
-    opacity: 0;
-   
-}
-@keyframes movedown {
-    0% {
-        opacity: 1;
-        transform: translateY(-30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0px);
-    }
-}
-
-.container:nth-child(1){
-    animation-delay: 0s;
-}
-.container:nth-child(2){
-    animation-delay: 1s;
-}
-.container:nth-child(3){
-    animation-delay: 2s;
-}
-.container:nth-child(4){
-    animation-delay: 3s;
-}
-.container:nth-child(5){
-    animation-delay: 4s;
-}
-.container:nth-child(6){
-    animation-delay: 5s;
-}
-.text-box{
-    padding: 20px 30px;
-    background: #fff;
-    position: relative;
-    border-radius: 6px;
-    font-size: 15px;
-}
-.left-container{
+nav ul li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
     left: 0;
-}
-.right-container{
-    left: 50%;
-}
-
-.container img{
-    position: absolute;
-    width: 20px;
-    border-radius: 50%;
-    right: -10px;
-    top: 43.5px;
-    z-index: 10;
-
-}
-.right-container img{
-    left: -10px;
-
+    background-color: #003F63; /* Matches the nav bar */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    width: 100%; /* Set width equal to the parent li */
+    margin-top: 17.5px;
 }
 
-.timeline::after{
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 100%;
-    background: #fff;
-    top: 0;
-    left: 50%;
-    margin-left: -3px;
-    z-index: -1;
-    animation: moveline 6s linear forwards;
+nav ul li ul li {
+    width: 100%; /* Ensure sub-items also take the full width */
 }
 
-@keyframes moveline{
-    0%{
-        height: 0;
-    }
-    100%{
-        height: 100%;
-    }
+nav ul li ul li a {
+    padding: 0.5rem 1rem;
+    display: block;
+    font-size: 0.9rem;
+    color: #ffffff; /* Matches the nav bar */
 }
 
-.text-box h2{
+nav ul li ul li a:hover {
+    background-color: #0078AA; /* Lighter blue on hover */
+}
+
+nav ul li:hover ul {
+    display: block; /* Show the dropdown when hovering */
+}
+
+
+.quote {
+    margin: 25px auto; /* Center the quote with consistent spacing */
+    padding: 20px 20px 15px 25px; /* Comfortable padding with emphasis on left side */
+    border-left: 5px solid #0078AA; /* Matches refined blue tone of the site */
+    background-color: #f8fafc; /* Softer off-white background for readability */
+    font-style: italic;
+    color: #2c3e50; /* Matches main text color for consistency */
+    width: 85%; /* Slightly wider for balance with the content */
+    border-radius: 8px; /* Smooth edges for a polished look */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    font-size: 1.1rem; /* Enhanced readability */
+    line-height: 1.8; /* Comfortable line spacing */
+}
+
+.reference {
+    text-align: right; /* Align reference to the right */
+    margin-right: 62.5px;
+    font-size: 0.9rem; /* Slightly smaller size for secondary emphasis */
+    color: #4a4a4a; /* Softer gray for subtlety */
+    margin-top: 10px; /* Spacing above the reference */
+    font-style: normal; /* Keep reference text plain for contrast with italicized quote */
+    margin-bottom: 20px;
+}
+
+.picture-container {
+    margin: 20px auto;
+    text-align: center; /* Centers the text within the caption */
+
+}
+
+.picture {
+    display: block;
+    margin: 0 auto; /* Centers the image */
+    max-width: 90%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 3px solid #0078AA;
+}
+
+.caption {
+    text-indent: 0px;
+    display: block; /* Ensures the caption is treated as a block element */
+    margin: 10px auto; /* Centers the caption horizontally */
+    max-width: 90%;
+    font-size: 0.95rem;
+    color: #4a4a4a; /* Matches paragraph text color */
+    font-style: italic; /* Adds emphasis to the caption */
+    line-height: 1.5;
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #7a7a7a;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    margin-bottom: 0px;
+    text-indent: 0px;
+
+}
+
+/* Footer Navigation */
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px; /* Adjust the gap as needed */
+    text-indent: 0px;
+
+}
+
+.footer-container p {
+    margin: 0;
+    text-indent: 0px;
+
+}
+
+.footer-container a {
+    color: #ffffff;
+    background-color: #005082; /* Matches navigation bar style */
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
     font-weight: 600;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-indent: 0px;
 
 }
-.text-box small{
-    display: inline-block;
-    margin-bottom: 15px;
-}
-.left-container-arrow{
-    height: 0;
-    width: 0;
-    position: absolute;
-    top: 28px;
-    z-index: -1;
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-left: 15px solid #fff;
-    right: -15px;
-}
 
-.right-container-arrow{
-    height: 0;
-    width: 0;
-    position: absolute;
-    top: 28px;
-    z-index: 1;
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-right: 15px solid #fff;
-    left: -14.5px;
+.footer-container a:hover {
+    background-color: #0078AA; /* Hover color for buttons */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    text-indent: 0px;
+
 }
-
-@media screen and (max-width: 600px){
-    .timeline{
-        margin: 50px auto;
-    }
-    .timeline::after{
-        left: 31px;
-    }
-    .container{
-        width: 100%;
-        padding-left: 80px;
-        padding-right: 25px;
-    }
-    .text-box{
-        font-size: 13px;
-    }
-    .text-box-small{
-        margin-bottom: 10px;
-
-    }
-    .right-container{
-        left: 0;
-    }
-    .left-container img, .right-container img{
-        left: 10px;
-    }
-    .left-container-arrow, .right-container-arrow{
-        border-right: 15px solid #fff;
-        border-left: 0;
-        left: -15px;
-    }
-}
-

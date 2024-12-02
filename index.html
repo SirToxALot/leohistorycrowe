@@ -4,147 +4,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline - Mormon Migration History Project</title>
+    <title>Mormon Migration History Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/icon.jpeg">
     <style>
-        /* Background settings */
+        /* Body styling for centering */
         body {
-            background-image: url('images/salt_lake_city.png');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* Gray overlay on the background */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -1;
-        }
-
-        /* Navigation Bar styling */
-        nav {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
-            padding: 1rem;
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
+            font-family: 'Trebuchet', sans-serif;
+            background-color: #f4f4f9;
         }
 
-        nav ul li {
-            display: inline;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Adjustments to timeline margin to account for nav bar */
-        .timeline {
-            margin-top: 120px;
-        }
-
-        /* Hero Section styling */
-        .hero {
+        /* Centered container */
+        .container {
+            margin-top: 50px;
+            max-width: 700px;
+            background: #fff;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
             text-align: center;
-            color: #fff;
-            margin-top: 120px;
-            padding: 3rem 1rem;
         }
 
-        .hero h1 {
+        /* Title styling */
+        h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            color: #0078AA;
+            border-bottom: 2px solid #005082;
+            padding-bottom: 0px;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.5;
+        /* Research question styling */
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 0 auto 2rem;
+            color: #4a4a4a;
+            text-indent: 0; /* Remove unwanted indentation */
         }
 
-        .hero .btn {
+        /* Button styling */
+        .btn {
             display: inline-block;
-            margin-top: 2rem;
-            padding: 0.75rem 2rem;
-            background: #fff;
-            color: #333;
+            padding: 0.75rem 1.5rem;
+            background: #005082;
+            color: #fff;
             text-decoration: none;
             font-size: 1rem;
             border-radius: 5px;
             font-weight: bold;
+            transition: background 0.3s ease;
+            margin-top: -5px;
         }
 
-        /* Footer styling */
-        footer {
-            background: rgba(0, 0, 0, 0.8);
-            color: #ffffff;
-            padding: 1rem;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
+        .btn:hover {
+            background: #0078AA;
         }
     </style>
 </head>
 
 <body>
-    <!-- Background Overlay -->
-    <div class="background-overlay"></div>
-
     <!-- Navigation Bar -->
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="timeline.html">Timeline</a></li>
-            <li><a href="migration.html">Migration & Settlement</a></li>
-            <li><a href="politics.html">Politics & Power</a></li>
-            <li><a href="context.html">Historical Context</a></li>
-            <li><a href="evidence.html">Evidence & Argument</a></li>
+            <li>
+                <a href="#">Persecution & Conflicts</a>
+                <ul>
+                    <li><a href="persecution_and_conflicts/jackson_county.html">Jackson County, Missouri</a></li>
+                    <li><a href="persecution_and_conflicts/far_west.html">The 1838 Mormon War</a></li>
+                    <li><a href="persecution_and_conflicts/nauvoo.html">Nauvoo, Illinois</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Migration & Settlement</a>
+                <ul>
+                    <li><a href="migration_and_settlement/mormon_exodus.html">The Mormon Exodus</a></li>
+                    <li><a href="migration_and_settlement/utah_war.html">The Utah War</a></li>
+                </ul>
+            </li>
+            <li><a href="references.html">References</a></li>
+            <li><a href="themes_and_skills.html">Themes & Skills</a></li>
         </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="hero">
-        <h1>Mormon Migration and Settlement</h1>
-        <p>How did social, political, and religious tensions in the 19th-century eastern United States drive the persecution of the Mormon community, ultimately leading to their westward migration and eventual settlement of Utah?</p>
-        <a href="timeline.html" class="btn">Learn More</a>
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Mormon Persecution and Exodus</h1>
+        <p>What social, political, and religious factors contributed to the persecution of Mormons in the eastern United States, and how did these pressures lead to their migration and eventual settlement in Utah?</p>
+        <a href="persecution_and_conflicts/jackson_county.html" class="btn">Learn More</a>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Leo's Real History Project. All rights reserved.</p>
-    </footer>
 </body>
 
 </html>
