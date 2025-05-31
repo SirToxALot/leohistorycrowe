@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ice Cream Business Simulator</title>
+  <title>Supply and Demand Simulator</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
@@ -185,7 +185,7 @@
       const price = parseFloat(document.getElementById('price').value);
       const maxPriceBeforeZeroDemand = demandIntercept;
       if (price > maxPriceBeforeZeroDemand) {
-        alert(`Warning: At $${price.toFixed(2)}, demand drops to 0. No one will buy ice cream!`);
+        alert(`Warning: At $${price.toFixed(2)}, demand drops to 0. No one will buy items!`);
         return;
       }
 
