@@ -41,8 +41,8 @@
   </style>
 </head>
 <body>
-  <h1>Ice Cream Business Simulator</h1>
-  <label for="price">Set Ice Cream Price ($): </label>
+  <h1>Supply and Demand Simulator</h1>
+  <label for="price">Set Item Price ($): </label>
   <input type="number" id="price" step="0.5" value="1">
   <button onclick="sellIceCream()">Sell Today At This Price</button>
   <p id="hint"></p>
@@ -158,7 +158,7 @@
           x: {
             title: {
               display: true,
-              text: 'Quantity Sold'
+              text: 'Quantity'
             },
             type: 'linear',
             min: 0,
