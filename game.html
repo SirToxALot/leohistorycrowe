@@ -3,55 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Supply and Demand Simulator</title>
+  <title>Donut Shop Equilibrium Game</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    canvas {
-      max-width: 100%;
-    }
-
-    #hint {
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    #main-container {
-      display: flex;
-      align-items: flex-start;
-      gap: 30px;
-      margin-top: 20px;
-    }
-
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    canvas { max-width: 100%; }
+    #hint, #status, #score { font-weight: bold; margin-top: 10px; }
+    #main-container { display: flex; align-items: flex-start; gap: 30px; margin-top: 20px; }
     #debug-panel {
       border: 1px solid #ccc;
       padding: 10px;
       width: 400px;
       white-space: pre-wrap;
       font-family: monospace;
-      align-self: center; /* Vertically centers in flex container */
+      align-self: center;
       box-sizing: border-box;
     }
-
-
+    .modal {
+      display: block;
+      position: fixed;
+      z-index: 999;
+      padding-top: 80px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover { color: #000; }
   </style>
 </head>
 <body>
-  <h1>Supply and Demand Simulator</h1>
-  <label for="price">Set Item Price ($): </label>
-  <input type="number" id="price" step="0.5" value="1">
-  <button onclick="sellIceCream()">Sell Today At This Price</button>
+  <div id="explanationModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Welcome to Your Donut Shop!</h2>
+      <p>You're a donut shop owner. Each morning, you must decide how many donuts to make.</p>
+      <ul>
+        <li>Too many? Donuts go to waste. 🍩💸</li>
+        <li>Too few? You miss out on hungry customers. 😟</li>
+        <li>Your goal: Match donut supply with customer demand.</li>
+        <li>Guess the right amount of donuts in the fewest number of days!</li>
+      </ul>
+    </div>
+  </div>
+
+  <h1>Donut Supply and Demand Challenge</h1>
+  <label for="quantity">How many donuts will you make today? </label>
+  <input type="number" id="quantity" step="1" min="0" value="0">
+  <button onclick="testQuantity()">Bake Donuts</button>
+  <p id="status"></p>
   <p id="hint"></p>
+  <p id="score"></p>
 
   <div id="main-container">
     <div>
-      <canvas id="gameChart" width="600" height="400"></canvas>
+      <canvas id="gameChart" width="800" height="400"></canvas>
     </div>
-
     <div id="debug-panel">
       <h3>Debug Panel</h3>
       <label><input type="checkbox" id="toggleSupply" onchange="updateDebugGraph()"> Show Supply Curve</label><br>
@@ -61,14 +86,17 @@
     </div>
   </div>
 
+  <h2>Your Daily Results</h2>
+  <canvas id="logChart" width="900" height="300"></canvas>
+
   <script>
-    document.getElementById('price').addEventListener('keydown', function(event) {
-      if (event.key === 'Enter') {
-        sellIceCream();
-      }
+    document.getElementById('quantity').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') testQuantity();
     });
 
-    let turn = 1;
+    let day = 1;
+    let gameOver = false;
+
     const demandSlope = -Math.random() * 0.1 - 0.05;
     const demandIntercept = Math.random() * 5 + 5;
     const supplySlope = Math.random() * 0.1 + 0.05;
@@ -85,183 +113,184 @@
 
     const eqX = (demandIntercept - supplyIntercept) / (supplySlope - demandSlope);
     const eqY = demandSlope * eqX + demandIntercept;
-    if (eqX >= 0 && eqY >= 0) {
-      equilibrium = { x: eqX, y: eqY };
-    }
-
-    const maxDemandPrice = demandIntercept;
+    const optimalQty = Math.floor(eqX + 0.5);
+    if (eqX >= 0 && eqY >= 0) equilibrium = { x: eqX, y: eqY };
 
     document.getElementById("debug-info").innerText =
-      `Equilibrium Price: $${equilibrium ? equilibrium.y.toFixed(2) : "N/A"}\n` +
-      `Demand Function: price = ${demandSlope.toFixed(3)} * quantity + ${demandIntercept.toFixed(2)}\n` +
-      `Supply Function: price = ${supplySlope.toFixed(3)} * quantity + ${supplyIntercept.toFixed(2)}\n` +
-      `Max Price Before Demand Drops to 0: $${maxDemandPrice.toFixed(2)}`;
+      `Equilibrium Quantity: ${equilibrium ? '~' + optimalQty : "N/A"}\n` +
+      `Demand Curve: price = ${demandSlope.toFixed(3)} * quantity + ${demandIntercept.toFixed(2)}\n` +
+      `Supply Curve: price = ${supplySlope.toFixed(3)} * quantity + ${supplyIntercept.toFixed(2)}`;
 
     const ctx = document.getElementById('gameChart').getContext('2d');
     const gameChart = new Chart(ctx, {
       type: 'scatter',
       data: {
         datasets: [
-          {
-            label: 'Player Decisions',
-            data: [],
-            backgroundColor: 'red',
-            borderColor: 'red',
-            pointRadius: 5,
-            showLine: false
-          },
-          {
-            label: 'Supply Curve',
-            data: [],
-            backgroundColor: 'green',
-            borderColor: 'green',
-            pointRadius: 0,
-            borderWidth: 1,
-            showLine: true
-          },
-          {
-            label: 'Demand Curve',
-            data: [],
-            backgroundColor: 'blue',
-            borderColor: 'blue',
-            pointRadius: 0,
-            borderWidth: 1,
-            showLine: true
-          },
-          {
-            label: 'Equilibrium Point',
-            data: [],
-            backgroundColor: 'black',
-            borderColor: 'black',
-            pointRadius: 7,
-            pointStyle: 'star',
-            showLine: false
-          }
-        ]
+  {
+    label: 'Supply at Your Qty',
+    data: [],
+    backgroundColor: 'green',
+    borderColor: 'green',
+    pointRadius: 5,
+    showLine: false
+  },
+  {
+    label: 'Demand at Your Qty',
+    data: [],
+    backgroundColor: 'blue',
+    borderColor: 'blue',
+    pointRadius: 5,
+    showLine: false
+  },
+  {
+    label: 'Supply Curve (full)',
+    data: [],
+    borderColor: 'lightgreen',
+    pointRadius: 0,
+    showLine: true,
+    borderDash: [5, 5]
+  },
+  {
+    label: 'Demand Curve (full)',
+    data: [],
+    borderColor: 'lightblue',
+    pointRadius: 0,
+    showLine: true,
+    borderDash: [5, 5]
+  },
+  {
+    label: 'Equilibrium Point',
+    data: [],
+    backgroundColor: 'gold',
+    borderColor: 'gold',
+    pointRadius: 10,
+    pointStyle: 'star',
+    showLine: false
+  }
+]
+
+
       },
       options: {
         responsive: false,
-        maintainAspectRatio: false,
         plugins: {
           tooltip: {
             callbacks: {
-              label: function(context) {
-                const dataPoint = context.raw;
-                return context.dataset.label === 'Player Decisions'
-                  ? `Day ${dataPoint.day}: Qty ${dataPoint.x}, Price $${dataPoint.y}, Revenue $${dataPoint.revenue}`
-                  : `${context.dataset.label}: (${dataPoint.x.toFixed(2)}, $${dataPoint.y.toFixed(2)})`;
-              }
+              label: ctx => `${ctx.dataset.label}: (${ctx.raw.x.toFixed(2)}, $${ctx.raw.y.toFixed(2)})`
             }
           }
         },
         scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Quantity'
-            },
-            type: 'linear',
-            min: 0,
-            max: 100
-          },
-          y: {
-            title: {
-              display: true,
-              text: 'Price ($)'
-            },
-            type: 'linear',
-            min: 0,
-            max: 10
-          }
+          x: { title: { display: true, text: 'Quantity (Donuts)' }, min: 0, max: 100 },
+          y: { title: { display: true, text: 'Price ($)' }, min: 0, max: 10 }
         }
       }
     });
 
-    function calculateDemand(price) {
-      return Math.max(0, Math.round((price - demandIntercept) / demandSlope));
+    const logCtx = document.getElementById('logChart').getContext('2d');
+    const logChart = new Chart(logCtx, {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [
+          { label: 'Your Quantity', data: [], backgroundColor: 'orange' },
+          { label: 'Optimal Quantity', data: [], backgroundColor: 'blue' }
+        ]
+      },
+      options: {
+        scales: {
+          x: { title: { display: true, text: 'Day' } },
+          y: { title: { display: true, text: 'Quantity' } }
+        }
+      }
+    });
+
+    function calculateDemand(qty) {
+      return demandSlope * qty + demandIntercept;
     }
 
-    function sellIceCream() {
-      const price = parseFloat(document.getElementById('price').value);
-      const maxPriceBeforeZeroDemand = demandIntercept;
-      if (price > maxPriceBeforeZeroDemand) {
-        alert(`Warning: At $${price.toFixed(2)}, demand drops to 0. No one will buy items!`);
+    function updateChartBounds() {
+      const allPoints = [];
+
+      gameChart.data.datasets.forEach(dataset => {
+        if (dataset.data && dataset.data.length > 0) {
+          allPoints.push(...dataset.data);
+        }
+      });
+
+      if (allPoints.length === 0) {
+        gameChart.options.scales.x.min = 0;
+        gameChart.options.scales.x.max = 100;
+        gameChart.options.scales.y.min = 0;
+        gameChart.options.scales.y.max = 10;
         return;
       }
 
-      const demand = calculateDemand(price);
-      const revenue = parseFloat((price * demand).toFixed(2));
+      const allX = allPoints.map(p => p.x);
+      const allY = allPoints.map(p => p.y);
 
-      const point = { x: demand, y: price, day: turn, revenue: revenue };
-      gameChart.data.datasets[0].data.push(point);
-
-      let allX = [];
-      let allY = [];
-
-      demandCurve.forEach(p => {
-        allX.push(p.x);
-        allY.push(p.y);
-      });
-
-      gameChart.data.datasets[0].data.forEach(p => {
-        allX.push(p.x);
-        allY.push(p.y);
-      });
-
-      if (equilibrium) {
-        allX.push(equilibrium.x);
-        allY.push(equilibrium.y);
-      }
-
-      if (document.getElementById('toggleSupply').checked) {
-        supplyCurve.forEach(p => {
-          allX.push(p.x);
-          allY.push(p.y);
-        });
-      }
-
-      if (document.getElementById('toggleDemand').checked) {
-        demandCurve.forEach(p => {
-          allX.push(p.x);
-          allY.push(p.y);
-        });
-      }
-
-      const xMin = Math.max(0, Math.min(...allX) - 5);
-      const xMax = Math.max(...allX) + 10;
-      const yMin = Math.max(0, Math.min(...allY) - 1);
-      const yMax = Math.max(...allY) + 5;
-
-      gameChart.options.scales.x.min = xMin;
-      gameChart.options.scales.x.max = xMax;
-      gameChart.options.scales.y.min = yMin;
-      gameChart.options.scales.y.max = yMax;
-
-      gameChart.update();
-
-      let hint = "";
-      if (equilibrium && Math.abs(price - equilibrium.y) <= 0.05) {
-        hint = "You're at the equilibrium price! Great job!";
-      } else if (equilibrium && price > equilibrium.y) {
-        hint = "Hint: Your price is too high. Try lowering it.";
-      } else if (equilibrium && price < equilibrium.y) {
-        hint = "Hint: Your price is too low. Try increasing it.";
-      }
-      document.getElementById('hint').innerText = hint;
-
-      turn++;
+      gameChart.options.scales.x.min = Math.max(0, Math.min(...allX) - 5);
+      gameChart.options.scales.x.max = Math.max(...allX) + 10;
+      gameChart.options.scales.y.min = Math.max(0, Math.min(...allY) - 1);
+      gameChart.options.scales.y.max = Math.max(...allY) + 5;
     }
 
+    function testQuantity() {
+        if (gameOver) return;
+
+        const qty = Number(document.getElementById('quantity').value);
+
+        if (isNaN(qty) || qty < 0 || !Number.isInteger(qty)) {
+            alert("Please enter a valid, non-negative whole number of donuts.");
+            return;
+        }
+
+
+        const demandPrice = calculateDemand(qty);
+        const supplyPrice = supplySlope * qty + supplyIntercept;
+
+        // Append scatter points for supply & demand
+        gameChart.data.datasets[0].data.push({ x: qty, y: supplyPrice }); // green
+        gameChart.data.datasets[1].data.push({ x: qty, y: demandPrice }); // blue
+
+        logChart.data.labels.push(`Day ${day}`);
+        logChart.data.datasets[0].data.push(qty);
+        logChart.data.datasets[1].data.push(optimalQty);
+
+        let hint = "";
+        if (qty === optimalQty) {
+            hint = `🎯 Perfect! You found the ideal quantity in ${day} day${day > 1 ? 's' : ''}!`;
+            gameChart.data.datasets[4].data = [equilibrium];
+            gameOver = true;
+        } else if (qty > optimalQty) {
+            hint = "Too many donuts — some went to waste!";
+        } else {
+            hint = "Too few donuts — some customers walked away!";
+        }
+
+        document.getElementById('status').innerText = `You baked ${qty} donut(s).`;
+        document.getElementById('hint').innerText = hint;
+
+        updateChartBounds();
+        gameChart.update();
+        logChart.update();
+        day++;
+    }
+
+
+
     function updateDebugGraph() {
-      const showSupply = document.getElementById('toggleSupply').checked;
-      const showDemand = document.getElementById('toggleDemand').checked;
-      const showEquilibrium = document.getElementById('toggleEquilibrium').checked;
+        gameChart.data.datasets[2].data = document.getElementById('toggleSupply').checked ? supplyCurve : [];
+        gameChart.data.datasets[3].data = document.getElementById('toggleDemand').checked ? demandCurve : [];
+        gameChart.data.datasets[4].data = document.getElementById('toggleEquilibrium').checked && equilibrium ? [equilibrium] : [];
+        updateChartBounds();
+        gameChart.update();
+    }
 
-      gameChart.data.datasets[1].data = showSupply ? supplyCurve : [];
-      gameChart.data.datasets[2].data = showDemand ? demandCurve : [];
-      gameChart.data.datasets[3].data = showEquilibrium && equilibrium ? [equilibrium] : [];
 
-      gameChart.update();
+
+    function closeModal() {
+      document.getElementById('explanationModal').style.display = 'none';
     }
   </script>
 </body>
