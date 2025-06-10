@@ -164,8 +164,12 @@ p {
 /* Container */
 .container {
     max-width: 680px;
-    margin: 0 auto;
-    margin-top: 110px;
+    width: 100%;
+    margin: auto;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: #fff;
     padding: 30px;
     text-align: center;
